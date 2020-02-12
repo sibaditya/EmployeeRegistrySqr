@@ -1,3 +1,5 @@
 <resources>
-  <string name="app_name">SquareEmployeeRegistry</string>
+  <string name="app_name">Square</string>
+  <string name="something_went_wrong">Something went wrong, please try again!</string>
+  <string name="internet_not_available">Internet not available, please try again!</string>
 </resources>

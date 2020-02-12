@@ -1,10 +1,12 @@
-package com.example.squareemployeeregistry;
+package com.example.squareemployeeregistry.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
+import com.example.squareemployeeregistry.R;
+
+public class MainActivity extends AppCompatActivity  {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
