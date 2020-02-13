@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:orientation="vertical"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:layout_gravity="center"
+  android:padding="16dp"
+  android:gravity="center"
+  android:visibility="visible"
+  android:id="@+id/empty_list_layout">
+
+
+  <com.airbnb.lottie.LottieAnimationView
+    android:id="@+id/empty_list"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="0dp"
+    android:layout_marginTop="0dp"
+    android:layout_marginEnd="0dp"
+    android:scaleType="centerCrop"
+    app:lottie_autoPlay="true"
+    app:lottie_fileName="empty_list.json"
+    app:lottie_loop="true" />
+
+  <TextView
+    android:id="@+id/empty_list_error_message"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="16dp"
+    android:textStyle="bold"
+    android:textSize="16sp"
+    tools:text="@string/internet_not_available"/>
+</LinearLayout>

@@ -2,4 +2,6 @@
   <string name="app_name">Square</string>
   <string name="something_went_wrong">Something went wrong, please try again!</string>
   <string name="internet_not_available">Internet not available, please try again!</string>
+  <string name="team">Team: %1$s</string>
+  <string name="press_back_twice">"Please click BACK again to exit"</string>
 </resources>

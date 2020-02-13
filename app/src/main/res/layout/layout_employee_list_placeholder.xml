@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/card_view"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:layout_marginTop="4dp"
+  android:layout_marginBottom="4dp"
+  android:layout_marginLeft="8dp"
+  android:layout_marginRight="8dp"
+  android:elevation="4dp"
+  app:cardCornerRadius="4dp"
+  android:padding="4dp">
+
+  <RelativeLayout
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+    <ImageView
+      android:id="@+id/employee_image"
+      android:layout_height="100dp"
+      android:layout_width="100dp"
+      android:padding="4dp"
+      android:background="#dddddd"
+      tools:background="@drawable/square_logo" />
+
+    <TextView
+      android:id="@+id/employee_name"
+      android:layout_height="18dp"
+      android:layout_width="match_parent"
+      android:layout_marginTop="8dp"
+      android:layout_marginLeft="16dp"
+      android:background="#dddddd"
+      android:textStyle="bold"
+      android:layout_toRightOf="@+id/employee_image"
+      tools:text="@string/app_name" />
+
+    <TextView
+      android:id="@+id/employee_phone_number"
+      android:layout_height="18dp"
+      android:layout_width="match_parent"
+      android:layout_marginLeft="16dp"
+      android:layout_marginTop="12dp"
+      android:background="#dddddd"
+      android:layout_below="@+id/employee_name"
+      android:layout_toRightOf="@+id/employee_image"
+      tools:text="@string/app_name" />
+
+    <TextView
+      android:id="@+id/employee_team"
+      android:layout_height="18dp"
+      android:layout_width="match_parent"
+      android:layout_marginLeft="16dp"
+      android:layout_marginTop="12dp"
+      android:background="#dddddd"
+      android:layout_below="@+id/employee_phone_number"
+      android:layout_toRightOf="@+id/employee_image"
+      tools:text="@string/app_name" />
+
+  </RelativeLayout>
+</androidx.cardview.widget.CardView>
