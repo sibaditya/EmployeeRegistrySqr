@@ -24,11 +24,15 @@ public class SplashActivity extends AppCompatActivity {
     setContentView(R.layout.activity_splash);
     SplashScreenViewModel splashScreenViewModel = ViewModelProviders.of(this).get(SplashScreenViewModel.class);
     splashScreenViewModel.init(this);
-    splashScreenViewModel.getEmployeeList();
+    splashScreenViewModel.getEmployeeListFromNetwork();
     splashScreenViewModel.getEmployeeListLiveData().observe(this, new Observer<Employees>(){
       @Override
       public void onChanged(Employees employees) {
-        launchMainActivity(ResultCode.HAPPY_PATH);
+        if(!employees.getEmployees().isEmpty()) {
+          launchMainActivity(ResultCode.HAPPY_PATH);
+        } else {
+          launchMainActivity(ResultCode.EMPTY_EMPLOYEE_LIST);
+        }
       }
     });
 

@@ -38,7 +38,21 @@ public class SplashScreenViewModel extends ViewModel implements ConnectivityMana
     return mEmployeesMutableLiveData;
   }
 
-  public void getEmployeeList() {
+  /**
+   * We have 2 url to simulate different situation.
+   * We can pass different url to Connectivity Manager to simulated different situation
+   * 1)UrlUtils.EMPLOYEE_LIST_SUCCESS_URL
+   * This URL will return a list of employee with out any malformed data.
+   *
+   * 2)UrlUtils.EMPLOYEE_LIST_MALFORMED_URL
+   * This URL will return the list of employee with some malformed data.
+   * In this case we scrap the whole list and return the empty list.
+   *
+   *
+   * 3)UrlUtils.EMPLOYEE_LIST_EMPTY_URL
+   * This URL returns the empty list of employee.
+   */
+  public void getEmployeeListFromNetwork() {
     if (ConnectivityManager.isInternetAvailable(mContext)) {
       ConnectivityManager connectivityManager = new ConnectivityManager(this, mContext);
       connectivityManager.fetchFeedFromNetwork(UrlUtils.EMPLOYEE_LIST_SUCCESS_URL, Employees.class);
@@ -60,7 +74,6 @@ public class SplashScreenViewModel extends ViewModel implements ConnectivityMana
         mErrorMessageCode.postValue(ResultCode.EMPTY_EMPLOYEE_LIST);
         return;
       }
-      mEmployeesMutableLiveData.postValue(employeesArrayList.get(0));
       final EmployeeRepository employeeRepository = new EmployeeRepository(mContext);
       final Employee[] employeeList = new Employee[employeeDetailArrayList.size()];
       for (int i = 0; i < employeesArrayList.get(0).getEmployees().size(); i++) {
@@ -71,6 +84,7 @@ public class SplashScreenViewModel extends ViewModel implements ConnectivityMana
           return;
         }
       }
+      mEmployeesMutableLiveData.postValue(employeesArrayList.get(0));
       AsyncTask.execute(new Runnable() {
         @Override
         public void run() {

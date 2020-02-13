@@ -32,11 +32,16 @@ public class MainActivity extends AppCompatActivity
         implements EmployeeListAdapter.EmployeeItemClickListener,
         EmployeeListAdapter.EmployeePhoneNumberClickListener {
 
+  private final int EMPLOYEE_LIST_PRESENT = 0;
+  private final int NO_INTERNET_CONNECTION = 1;
+  private final int MALFORMED_EMPLOYEE_LIST = 2;
+  private final int EMPTY_EMPLOYEE_LIST = 3;
+  private final int SOME_ERROR_OCCUR = 4;
+
   private RecyclerView mEmployeeRecyclerView;
   private ShimmerFrameLayout mShimmerFrameLayout;
   private LinearLayout mNoInternetConnectionLayout;
   private LinearLayout mEmptyListLayout;
-  private ResultCode mResultCode;
 
   private boolean doubleBackToExitPressedOnce = false;
   private EmployeeListAdapter mEmployeeListAdapter;
@@ -50,44 +55,8 @@ public class MainActivity extends AppCompatActivity
     mShimmerFrameLayout = findViewById(R.id.shimmer_view_container);
     mNoInternetConnectionLayout = findViewById(R.id.no_internet_connection_layout);
     mEmptyListLayout = findViewById(R.id.empty_list_layout);
-    mResultCode = (ResultCode) getIntent().getSerializableExtra(RESULT_CODE_BUNDLE_VALUE);
-    switch (mResultCode.getId()) {
-      case 0:
-        mEmployeeRecyclerView.setVisibility(View.VISIBLE);
-        mShimmerFrameLayout.setVisibility(View.VISIBLE);
-        mNoInternetConnectionLayout.setVisibility(View.GONE);
-        mEmptyListLayout.setVisibility(View.GONE);
-        mShimmerFrameLayout.startShimmerAnimation();
-      break;
-
-      case 1:
-        mNoInternetConnectionLayout.setVisibility(View.VISIBLE);
-        mEmployeeRecyclerView.setVisibility(View.GONE);
-        mShimmerFrameLayout.setVisibility(View.GONE);
-        mEmptyListLayout.setVisibility(View.GONE);
-        LottieAnimationView noInternetConnection = findViewById(R.id.no_connection_animation);
-        noInternetConnection.playAnimation();
-        break;
-
-      case 2:
-
-        break;
-
-      case 3:
-        mEmptyListLayout.setVisibility(View.VISIBLE);
-        mNoInternetConnectionLayout.setVisibility(View.GONE);
-        mEmployeeRecyclerView.setVisibility(View.GONE);
-        mShimmerFrameLayout.setVisibility(View.GONE);
-        LottieAnimationView emptyListAnimation = findViewById(R.id.empty_list);
-        TextView emptyListErrorMessage = findViewById(R.id.empty_list_error_message);
-        emptyListAnimation.playAnimation();
-        emptyListErrorMessage.setText(mResultCode.getMsg());
-        break;
-
-      case 4:
-
-        break;
-    }
+    ResultCode resultCode = (ResultCode) getIntent().getSerializableExtra(RESULT_CODE_BUNDLE_VALUE);
+    setUpLayout(resultCode);
     setUpEmployeeRecyclerView();
     MainActivityViewModel mainActivityViewModel = ViewModelProviders.of(this).get(MainActivityViewModel.class);
     mainActivityViewModel.init(this);
@@ -102,6 +71,41 @@ public class MainActivity extends AppCompatActivity
     });
   }
 
+  private void setUpLayout(ResultCode resultCode) {
+    switch (resultCode.getId()) {
+      case EMPLOYEE_LIST_PRESENT:
+        mEmployeeRecyclerView.setVisibility(View.VISIBLE);
+        mShimmerFrameLayout.setVisibility(View.VISIBLE);
+        mNoInternetConnectionLayout.setVisibility(View.GONE);
+        mEmptyListLayout.setVisibility(View.GONE);
+        mShimmerFrameLayout.startShimmerAnimation();
+        break;
+
+      case NO_INTERNET_CONNECTION:
+        mNoInternetConnectionLayout.setVisibility(View.VISIBLE);
+        mEmployeeRecyclerView.setVisibility(View.GONE);
+        mShimmerFrameLayout.setVisibility(View.GONE);
+        mEmptyListLayout.setVisibility(View.GONE);
+        LottieAnimationView noInternetConnection = findViewById(R.id.no_connection_animation);
+        noInternetConnection.playAnimation();
+        break;
+
+      case MALFORMED_EMPLOYEE_LIST:
+      case EMPTY_EMPLOYEE_LIST:
+      case SOME_ERROR_OCCUR:
+        mEmptyListLayout.setVisibility(View.VISIBLE);
+        mNoInternetConnectionLayout.setVisibility(View.GONE);
+        mEmployeeRecyclerView.setVisibility(View.GONE);
+        mShimmerFrameLayout.setVisibility(View.GONE);
+        LottieAnimationView emptyListAnimation = findViewById(R.id.empty_list);
+        TextView emptyListErrorMessage = findViewById(R.id.empty_list_error_message);
+        emptyListAnimation.playAnimation();
+        emptyListErrorMessage.setText(resultCode.getMsg());
+        break;
+    }
+  }
+
+
   @Override
   protected void onResume() {
     super.onResume();
@@ -113,6 +117,7 @@ public class MainActivity extends AppCompatActivity
     super.onPause();
     mShimmerFrameLayout.stopShimmerAnimation();
   }
+
 
   @Override
   public void onBackPressed() {

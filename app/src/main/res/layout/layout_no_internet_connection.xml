@@ -23,13 +23,4 @@
     app:lottie_autoPlay="true"
     app:lottie_fileName="no_internet_connection.json"
     app:lottie_loop="true" />
-
- <!-- <TextView
-    android:id="@+id/no_connection_error_message"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="16dp"
-    android:textStyle="bold"
-    android:textSize="16sp"
-    android:text="@string/internet_not_available"/>-->
 </LinearLayout>
